@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\ninstalling neccessary tools ..."
-sudo apt-get install -y qemu qemu-user-static binfmt-support aria2 cloud-guest-utils
+sudo apt-get install -y qemu qemu-user-static binfmt-support aria2 unzip cloud-guest-utils
 
 
 mkdir -p img
