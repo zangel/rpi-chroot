@@ -1,9 +1,11 @@
 #!/bin/bash
 
-mkdir -p /tmp/rpi/src /tmp/rpi/build/poco
+mydir="${0%/*}"
+
+mkdir -p $mydir/rpi/src $mydir/rpi/build/poco
 
 echo -e "\ndownloading poco-1.9.0 library ..."
-cd /tmp/rpi/src
+cd $mydir/rpi/src
 wget https://pocoproject.org/releases/poco-1.9.0/poco-1.9.0-all.tar.gz
 tar zxf ../src/poco-1.9.0-all.tar.gz
 
@@ -16,5 +18,5 @@ make -j 8
 
 echo -e "\ninstalling poco-1.9.0 library ..."
 make install
-rm -rf /tmp/rpi
+rm -rf $mydir/rpi
 

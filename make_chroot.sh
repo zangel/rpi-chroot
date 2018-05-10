@@ -1,5 +1,15 @@
 #!/bin/bash
 
+mydir="${0%/*}"
+
+if [ -d "mnt/dev" ]
+then
+	echo "it seems you already have a mounted chroot environment, please unmount it first!"
+	exit
+fi
+
+rm -rf mnt img
+
 echo -e "\ninstalling neccessary tools ..."
 sudo apt-get install -y qemu qemu-user-static binfmt-support aria2 unzip cloud-guest-utils
 
@@ -47,8 +57,11 @@ sudo mount --bind /sys mnt/sys/
 sudo mount --bind /proc mnt/proc/
 sudo mount --bind /dev/pts mnt/dev/pts
 
-sudo chroot mnt sudo apt-get install -y libpoco-dev libboost-dev qt5-default libboost-log-dev libboost-date-time-dev libboost-thread-dev libboost-filesystem-dev libeigen3-dev liblz4-dev libjpeg62-turbo-dev libopencv-dev libglew-dev libpng-dev libunwind-dev
+sudo chroot mnt sudo apt-get install -y cmake git libboost-dev libboost-log-dev libboost-date-time-dev libboost-thread-dev libboost-filesystem-dev libeigen3-dev liblz4-dev libjpeg62-turbo-dev libopencv-dev libglew-dev libpng-dev libunwind-dev openssl libssl-dev
 
+sudo cp $mydir/guest_build_poco.sh mnt/tmp
+sudo chroot mnt /tmp/guest_build_poco.sh
+sudo rm mnt/tmp/guest_build_poco.sh
 
 echo -e "\nunmounting dev, sys, proc, and dev/pts ..." 
 sudo umount mnt/dev/pts

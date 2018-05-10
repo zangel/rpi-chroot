@@ -1,5 +1,13 @@
 #!/bin/bash
 
+mydir="${0%/*}"
+
+if [ ! -d "mnt/dev" ]
+then
+	echo "you have no mounted chroot environment!"
+	exit
+fi
+
 echo -e "\nunmounting dev, sys, proc, and dev/pts ..." 
 sudo umount mnt/dev/pts
 sudo umount mnt/dev

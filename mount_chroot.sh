@@ -1,5 +1,13 @@
 #!/bin/bash
 
+mydir="${0%/*}"
+
+if [ -d "mnt/dev" ]
+then
+	echo "it seems you already have a mounted chroot environment, please unmount it first!"
+	exit
+fi
+
 echo -e "\ncreating a loop device from raspbian lite image ..."
 sudo losetup -f -P --show img/2018-04-18-raspbian-stretch-lite.img
 
